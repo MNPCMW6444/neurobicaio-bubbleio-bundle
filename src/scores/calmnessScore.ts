@@ -63,7 +63,6 @@ export const startListeninigToCalmnessScore = async () => {
       powerByBand(frequencyBands) as any
     )
     .subscribe((x: any) => {
-      console.log(x);
       let score = 5;
       try {
         const keys = Object.keys(x);
@@ -80,7 +79,9 @@ export const startListeninigToCalmnessScore = async () => {
             2 * yoadedObject.ALPHA_LOW +
             yoadedObject.ALPHA_HIGH) *
             4;
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
       window.calmessScore = Math.floor(
         score < 5 ? 5 : score > 100 ? 100 : score
       );
