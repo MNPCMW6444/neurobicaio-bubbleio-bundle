@@ -16,7 +16,7 @@
     "url": "https://github.com/MNPCMW6444/neurobicaio-bubbleio-bundle/issues"
   },
   "homepage": "https://github.com/MNPCMW6444/neurobicaio-bubbleio-bundle#readme",
-  "dependencies": {
+  "devDependencies": {
     "muse-js": "^3.3.0",
     "typescript": "^5.2.2",
     "webpack": "^5.88.2"
