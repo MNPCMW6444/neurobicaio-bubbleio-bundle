@@ -80,11 +80,10 @@ export const startListeninigToCalmnessScore = async () => {
             yoadedObject.ALPHA_HIGH) *
             4;
       } catch (e) {
-        console.log(e);
+        console.log("error in startListeninigToCalmnessScore: ", e);
       }
       window.calmessScore = Math.floor(
         score < 5 ? 5 : score > 100 ? 100 : score
       );
-      console.log(window.calmessScore);
     });
 };
