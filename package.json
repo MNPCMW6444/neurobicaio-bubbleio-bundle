@@ -1,0 +1,24 @@
+{
+  "name": "neurobicaio-bubbleio-bundle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bundle/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MNPCMW6444/neurobicaio-bubbleio-bundle.git"
+  },
+  "author": "Michael Nusair",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/MNPCMW6444/neurobicaio-bubbleio-bundle/issues"
+  },
+  "homepage": "https://github.com/MNPCMW6444/neurobicaio-bubbleio-bundle#readme",
+  "dependencies": {
+    "muse-js": "^3.3.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2"
+  }
+}
