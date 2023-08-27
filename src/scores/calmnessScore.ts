@@ -85,6 +85,6 @@ export const startListeninigToCalmnessScore = async () => {
       window.calmessScore = Math.floor(
         score < 5 ? 5 : score > 100 ? 100 : score
       );
-      //console.log(window.calmessScore);
+      console.log(window.calmessScore);
     });
 };
