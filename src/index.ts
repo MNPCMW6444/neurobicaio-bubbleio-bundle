@@ -1,20 +1,11 @@
-import { MuseClient } from "muse-js";
-import { startListeninigToCalmnessScore } from "./scores/calmnessScore";
+import wearables from "./wearables";
 
 declare global {
   interface Window {
-    muse: MuseClient;
-    connectAndStartMuse: () => Promise<void>;
-    calmessScore: number;
-    startListeninigToCalmnessScore: () => void;
+    mnpcmw: {
+      wearables: typeof wearables;
+    };
   }
 }
 
-window.muse = new MuseClient();
-
-window.connectAndStartMuse = async () => {
-  await window.muse.connect();
-  await window.muse.start();
-};
-
-window.startListeninigToCalmnessScore = startListeninigToCalmnessScore;
+window.mnpcmw = { wearables };
