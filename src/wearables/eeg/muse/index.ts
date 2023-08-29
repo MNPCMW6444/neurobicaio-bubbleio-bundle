@@ -6,7 +6,8 @@ const muse: {
   connectAndStartMuse: () => Promise<void>;
   disconnect: () => void;
   startListeningToCalmnessScore: () => Promise<void>;
-} = {} as any;
+  scores:{calmness:number}
+} = {scores:{}} as any;
 
 muse.client = new MuseClient();
 

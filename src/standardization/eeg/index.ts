@@ -9,7 +9,7 @@ enum FrequencyBandsPoints {
   max = 60,
 }
 
-const FrequencyBands = {
+ const FrequencyBands = {
   THETA: {
     minFrequencyiInHz: FrequencyBandsPoints.minTheta,
     maxFrequencyiInHz: FrequencyBandsPoints.minAlphaLow,
@@ -39,3 +39,6 @@ const FrequencyBands = {
     maxFrequencyiInHz: FrequencyBandsPoints.max,
   },
 };
+
+
+export default {FrequencyBands}
