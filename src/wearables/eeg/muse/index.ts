@@ -1,10 +1,13 @@
 import { MuseClient } from "muse-js";
 import { startListeningToCalmnessScore } from "./scores/calmnessScore";
 
+
+
 const muse: {
   client: MuseClient;
   connectAndStartMuse: () => Promise<void>;
   disconnect: () => void;
+  isConnected:()=>boolean;
   startListeningToCalmnessScore: () => Promise<void>;
   scores:{calmness:number}
 } = {scores:{}} as any;
@@ -18,6 +21,7 @@ muse.connectAndStartMuse = async () => {
 muse.disconnect = () => {
   muse.client.disconnect();
 };
+
 
 muse.startListeningToCalmnessScore = startListeningToCalmnessScore;
 
