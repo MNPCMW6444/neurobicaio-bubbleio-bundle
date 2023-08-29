@@ -28,22 +28,22 @@ export const startListeningToCalmnessScore = async () => {
       fft({ bins: 256 }) as any,
       powerByBand(bandsForPowerByBand) as any
     )
-    .subscribe((x: any) => {
+    .subscribe((powerByBands: any) => {
       let score = 5;
       try {
-        const keys = Object.keys(x);
-        const values = Object.keys(x).map(
-          (key: string) => (3 * x[key][0] + 7 * x[key][1]) / 20
+        const keys = Object.keys(powerByBands);
+        const values = Object.keys(powerByBands).map(
+          (key: string) => (3 * powerByBands[key][0] + 7 * powerByBands[key][1]) / 20
         );
-        let yoadedObject: any = {};
+        let powerByBands2: any = {};
         values.forEach((value, i) => {
-          yoadedObject[keys[i] as any] = value;
+          powerByBands2[keys[i] as any] = value;
         });
         score =
           100 -
-          (3 * yoadedObject.THETA +
-            2 * yoadedObject.ALPHA_LOW +
-            yoadedObject.ALPHA_HIGH) *
+          (3 * powerByBands2.THETA +
+            2 * powerByBands2.ALPHA_LOW +
+            powerByBands2.ALPHA_HIGH) *
             4;
       } catch (e) {
         console.log("error in startListeningToCalmnessScore: ", e);
