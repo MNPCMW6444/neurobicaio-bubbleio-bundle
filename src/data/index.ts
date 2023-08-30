@@ -1,4 +1,4 @@
 import standardization from "./standardization";
 import state from "./state";
 
-export default { standardization ,state };
+export default {standardization, state};
