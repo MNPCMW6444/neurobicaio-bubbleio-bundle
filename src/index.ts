@@ -1,15 +1,14 @@
-import wearables from "./wearables";
-import standardization from "./standardization";
+import functions from "./functions";
+import data from "./data";
 
 declare global {
   interface Window {
     mnpcmw: {
-      wearables: typeof wearables;
-      standardization: typeof  standardization;
-      errorMessages: string[];
+      functions: typeof functions;
+      data: typeof  data;
     };
   }
 }
 
 
-window.mnpcmw = { wearables,standardization, errorMessages:[] };
+window.mnpcmw = { functions,data };
