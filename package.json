@@ -7,7 +7,7 @@
     "bundle": "webpack --mode=production",
     "prebundle": "npm run ts",
     "ts": "tsc",
-    "prets": "rm -rf trans bundle"
+    "prets": "rm -rf trans bundle node_modules & npm i"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@neurosity/pipes": "^5.2.1",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "socket.io-client": "^4.7.2"
   }
 }

@@ -1,4 +1,9 @@
-const a=1
-const b=1
+interface LoggedError {
+    error:any;
+    time:Date;
+    source:string;
+}
 
-export default {a,b}
+const errorsArray :LoggedError[]=[];
+
+export default {errorsArray}
