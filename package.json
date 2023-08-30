@@ -7,7 +7,7 @@
     "bundle": "webpack --mode=production",
     "prebundle": "npm run ts",
     "ts": "tsc",
-    "prets": "rm -rf trans bundle node_modules & npm i"
+    "prets": "sudo rm -rf trans bundle node_modules && npm i"
   },
   "repository": {
     "type": "git",
