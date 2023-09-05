@@ -10,14 +10,14 @@ const createSocket = (uri: string) => {
 const createGame = (email: string) => {
     socket.emit('createGame', email);
     socket.on("gameCreated", (gameId) => {
-        window.mnpcmw.data.state.store.multiplayer.game = gameId
+        window.mnpcmw.data.state.store.multiplayer.gameNumberHolder.value = gameId
     })
 }
 
 const joinGame = (email: string, wantedGame: number) => {
     socket.emit('joinGame', {email, wantedGame});
     socket.on("gameAnswer", (answer: boolean) => {
-        window.mnpcmw.data.state.store.multiplayer.game = answer ? wantedGame : -1;
+        window.mnpcmw.data.state.store.multiplayer.gameNumberHolder.value = answer ? wantedGame : -1;
     })
 }
 

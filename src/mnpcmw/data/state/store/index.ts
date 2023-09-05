@@ -1,4 +1,5 @@
 import wearables from "./wearables";
-import multiplayer from "./multiplayer";
+import singlePlayer from "./singlePlayer";
+import multiPlayer from "./multiPlayer";
 
-export default {wearables, multiplayer}
+export default {wearables, singlePlayer, multiPlayer}
