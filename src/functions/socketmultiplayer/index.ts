@@ -7,9 +7,6 @@ const createSocket = (uri: string) => {
 };
 
 
-// const applyToSocket = (name: string, callBack: <DataType>(data: DataType) => void) => socket.on(name, callBack);
-
-
 const createGame = (email: string) => {
     socket.emit('createGame', email);
     socket.on("gameCreated", (gameId) => {
