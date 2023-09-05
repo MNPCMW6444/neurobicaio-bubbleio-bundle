@@ -7,5 +7,22 @@ const createSocket = (uri: string) => {
 };
 
 
-const applyToSocket = (name: string, callBack: <DataType>(data: DataType) => void) => socket.on(name, callBack);
-export default {createSocket, applyToSocket}
+// const applyToSocket = (name: string, callBack: <DataType>(data: DataType) => void) => socket.on(name, callBack);
+
+
+const createGame = (email: string) => {
+    socket.emit('createGame', email);
+    socket.on("gameCreated", (gameId) => {
+        window.mnpcmw.data.state.store.multiplayer.game = gameId
+    })
+}
+
+const joinGame = (email: string, wantedGame: number) => {
+    socket.emit('joinGame', {email, wantedGame});
+    socket.on("gameAnswer", (answer: boolean) => {
+        window.mnpcmw.data.state.store.multiplayer.game = answer ? wantedGame : -1;
+    })
+}
+
+
+export default {createSocket, createGame, joinGame}
