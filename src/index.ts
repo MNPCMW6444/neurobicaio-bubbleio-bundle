@@ -1,14 +1,13 @@
-import functions from "./functions";
-import data from "./data";
+import mnpcmw from "./mnpcmw";
+import fp from "./fp";
 
 declare global {
-  interface Window {
-    mnpcmw: {
-      functions: typeof functions;
-      data: typeof  data;
-    };
-  }
+    interface Window {
+        mnpcmw: typeof mnpcmw;
+        fp: typeof fp;
+    }
 }
 
 
-window.mnpcmw = { functions,data };
+window.mnpcmw = mnpcmw;
+window.fp = fp;
