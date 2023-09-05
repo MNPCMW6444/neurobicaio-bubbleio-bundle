@@ -3,7 +3,7 @@ import {io, Socket} from "socket.io-client";
 
 let socket: Socket;
 const createSocket = (uri: string) => {
-    socket = io(uri);
+    socket = io(uri || "https://neurobicaio-multiplayer.onrender.com");
 };
 
 
