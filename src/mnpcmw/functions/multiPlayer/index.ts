@@ -15,6 +15,7 @@ const createGame = (uri: string, email: string) => {
     socket.on("gameCreated", (gameId) => {
         window.mnpcmw.data.state.store.multiPlayer.gameNumberHolder.value = gameId
     })
+    play(email);
 }
 
 const joinGame = (uri: string, email: string, wantedGame: number) => {
@@ -22,6 +23,17 @@ const joinGame = (uri: string, email: string, wantedGame: number) => {
     socket.emit('joinGame', {email, wantedGame});
     socket.on("gameAnswer", (answer: boolean) => {
         window.mnpcmw.data.state.store.multiPlayer.gameNumberHolder.value = answer ? wantedGame : -1;
+    })
+    play(email);
+}
+
+const play = (email: string) => {
+    setInterval(() => socket.emit('updateScore', {
+        email,
+        newScore: window.mnpcmw.data.state.store.wearables.eeg.muse.scores.calmness.scoreHolder.value
+    }), 1000);
+    socket.on("fightsOnTrue", () => {
+        //start rendering
     })
 }
 
