@@ -1,4 +1,6 @@
+import config from "./config";
 import data from "./data";
 import functions from "./functions";
+import intervals from "./intervals";
 
-export default {data, functions}
+export default {config, data, functions, intervals}

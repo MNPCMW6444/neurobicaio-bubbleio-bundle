@@ -1,57 +1,38 @@
-import { epoch, fft, powerByBand } from "@neurosity/pipes";
-import { EEGReading } from "muse-js";
-import { map } from "rxjs";
-import {IFrequencyBands} from "@neurosity/pipes/dist/cjs/types/frequencyBands";
+import {epoch, fft, powerByBand} from "@neurosity/pipes";
+import {map} from "rxjs";
 
-
-
-const bandsForPowerByBand:IFrequencyBands={};
+const bandsForPowerByBand = {};
 
 export default {
-  startListeningToCalmnessScore: async () => {
-    if (!window.mnpcmw.functions.wearables.eeg.muse.client.eegReadings)
-      throw new Error("Muse not connected");
-    const freqrange = Object.values(window.mnpcmw.data.standardization.eeg.FrequencyBands);
-    const freqnames = Object.keys(window.mnpcmw.data.standardization.eeg.FrequencyBands);
-    freqnames.forEach((freqname: string, index: number) => {
-      bandsForPowerByBand[freqname] = [
-        freqrange[index].minFrequencyiInHz,
-        freqrange[index].maxFrequencyiInHz,
-      ];
-    });
-    window.mnpcmw.functions.wearables.eeg.muse.client.eegReadings
-        .pipe(
-            map(({samples, timestamp}: EEGReading) => ({
-              timestamp,
-              data: samples,
-            })) as any,
-            epoch({duration: 256, interval: 100}) as any,
-            fft({bins: 256}) as any,
-            powerByBand(bandsForPowerByBand) as any
-        )
-        .subscribe((powerByBands: any) => {
-          let score = 5;
-          try {
-            const keys = Object.keys(powerByBands);
-            const values = Object.keys(powerByBands).map(
-                (key: string) => (3 * powerByBands[key][0] + 7 * powerByBands[key][1]) / 20
-            );
-            let powerByBands2: any = {};
-            values.forEach((value, i) => {
-              powerByBands2[keys[i] as any] = value;
-            });
-            score =
-                100 -
-                (3 * powerByBands2.THETA +
-                    2 * powerByBands2.ALPHA_LOW +
-                    powerByBands2.ALPHA_HIGH) *
-                4;
-          } catch (e) {
-            console.log("error in startListeningToCalmnessScore: ", e);
-          }
-          window.mnpcmw.data.state.store.wearables.eeg.muse.scores.calmness.scoreHolder.value = Math.floor(
-              score < 2 ? 2 : score > 50 ? 50 : score
-          );
+    startListeningToCalmnessScore: async () => {
+        const {client, data, functions, config} = window.mnpcmw;
+        const {eegReadings} = client.eeg.muse;
+        if (!eegReadings) throw new Error("Muse not connected");
+
+        const {FrequencyBands} = data.standardization.eeg;
+
+        Object.entries(FrequencyBands).forEach(([key, {minFrequencyiInHz, maxFrequencyiInHz}]) => {
+            bandsForPowerByBand[key] = [minFrequencyiInHz, maxFrequencyiInHz];
         });
-  }
-}
+
+        eegReadings
+            .pipe(
+                map(({samples, timestamp}) => ({timestamp, data: samples})),
+                epoch({duration: 256, interval: 100}),
+                fft({bins: 256}),
+                powerByBand(bandsForPowerByBand)
+            )
+            .subscribe(powerByBands => {
+                try {
+                    const powerByBands2 = Object.fromEntries(
+                        Object.entries(powerByBands).map(
+                            ([key, val]) => [key, (3 * val[0] + 7 * val[1]) / 20]
+                        )
+                    );
+                    functions.wearables.eeg.muse.scores.calmness.scoreHolder.value = config.calculateCalmnessScore(powerByBands2);
+                } catch (e) {
+                    console.log("error in startListeningToCalmnessScore: ", e);
+                }
+            });
+    }
+};
